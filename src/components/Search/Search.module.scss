@@ -25,3 +25,19 @@
     position: relative;
     left: -130px;
 }
+
+.closeIcon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.3;
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    cursor: pointer;
+    transition: all 0.2s linear;
+
+    &:hover {
+        opacity: 0.8;
+        scale: 1.15;
+    }
+}

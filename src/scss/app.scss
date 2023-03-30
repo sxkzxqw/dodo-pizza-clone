@@ -34,7 +34,7 @@ body {
   &__items {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    // тут рипит 2 1фр ровс
     grid-column-gap: 11px;
 
     @media (max-width: 1400px) {
