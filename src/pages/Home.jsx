@@ -15,10 +15,11 @@ const Home = () => {
                 setPizzas(items);
                 setIsLoading(false)
             })
+        window.scrollTo(0, 0)
     }, [])
 
     return (
-        <>
+        <div className='container'>
             <div class="content__top">
                 <Categories />
                 <Sort />
@@ -32,7 +33,7 @@ const Home = () => {
                     })
                 }
             </div>
-        </>
+        </div>
     );
 };
 
