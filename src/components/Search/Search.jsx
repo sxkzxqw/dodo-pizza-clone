@@ -1,7 +1,10 @@
 import React from 'react';
 import styles from './Search.module.scss';
+import { appContext } from '../../App';
 
-const Search = ({ searchValue, setSearchValue }) => {
+const Search = () => {
+    const { searchValue, setSearchValue } = React.useContext(appContext)
+
     return (
         <div className={styles.wrapper}>
             <svg
