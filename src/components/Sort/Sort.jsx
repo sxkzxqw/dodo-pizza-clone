@@ -1,27 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSort } from '../../redux/slices/filterSlice';
+
+export const list = [
+  { name: 'популярности(убыв)', sortProperty: 'rating' },
+  { name: 'популярности(возр)', sortProperty: '-rating' },
+  { name: 'цене(убыв)', sortProperty: 'price' },
+  { name: 'цене(возр)', sortProperty: '-price' },
+  { name: 'алфавиту(убыв)', sortProperty: 'title' },
+  { name: 'алфавиту(возр)', sortProperty: '-title' }
+];
 
 const Sort = () => {
   const dispatch = useDispatch()
   const value = useSelector((state) => state.filters.sort)
+  const sortRef = useRef();
 
   const [isPopupVisisble, setIsPopupVisible] = useState(false);
-  const list = [
-    { name: 'популярности(убыв)', sortProperty: 'rating' },
-    { name: 'популярности(возр)', sortProperty: '-rating' },
-    { name: 'цене(убыв)', sortProperty: 'price' },
-    { name: 'цене(возр)', sortProperty: '-price' },
-    { name: 'алфавиту(убыв)', sortProperty: 'title' },
-    { name: 'алфавиту(возр)', sortProperty: '-title' }
-  ];
   const onClickSetItem = (item) => {
     dispatch(setSort(item))
     setIsPopupVisible(!isPopupVisisble)
   }
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.composedPath().includes(sortRef.current)) {
+        setIsPopupVisible(false)
+      }
+    }
+    document.addEventListener('click', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside)
+    }
+  }, [])
+
   return (
-    <div className="sort">
+    <div className="sort" ref={sortRef}>
       <div className="sort__label">
         <svg
           width="10"
