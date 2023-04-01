@@ -3,11 +3,11 @@ import Categories from '../components/Categories/Categories';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort/Sort';
-import ReactPaginate from 'react-paginate';
 import Pagination from '../components/Pagination/Pagination';
 import { appContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId, setPageCount } from '../redux/slices/filterSlice';
+import axios from 'axios';
 
 const Home = () => {
     const { searchValue } = React.useContext(appContext)
@@ -18,7 +18,7 @@ const Home = () => {
 
     const dispatch = useDispatch()
     const categoryId = useSelector((state) => state.filters.categoryId)
-    const [currentPage, setCurrentPage] = useState(1);
+    const currentPage = useSelector((state) => state.filters.pageCount)
 
     const items = pizzas.map((pizza) => {
         return <PizzaBlock pizza={pizza} key={pizza.id} />
@@ -26,18 +26,20 @@ const Home = () => {
 
     const skeletons = [...new Array(12)].map((_, index) => { return <Skeleton key={index} /> })
 
+    const onChangePage = (number) => {
+        dispatch(setPageCount(number))
+    }
+
     useEffect(() => {
         setIsLoading(true);
         const order = sortType.includes('-') ? 'asc' : 'desc';
         const search = searchValue ? `search=${searchValue}` : '';
 
-        fetch(`https://64247d6f9e0a30d92b1d3695.mockapi.io/items?page=${currentPage}&limit=4&${categoryId > 0 ? `category=${categoryId}` : ''
-            }${search}&sortBy=${sortType.replace('-', '')}&order=${order}`)
-            .then((response) => response.json())
-            .then((items) => {
-                setPizzas(items);
-                setIsLoading(false)
-            })
+        axios.get(`https://64247d6f9e0a30d92b1d3695.mockapi.io/items?page=${currentPage}&limit=4&${categoryId > 0 ? `category=${categoryId}` : ''}${search}&sortBy=${sortType.replace('-', '')}&order=${order}`
+        ).then(response => {
+            setPizzas(response.data);
+            setIsLoading(false)
+        })
         window.scrollTo(0, 0)
     }, [categoryId, sortType, searchValue, currentPage])
 
@@ -58,7 +60,7 @@ const Home = () => {
                     : items
                 }
             </div>
-            <Pagination onChangePage={(number) => setCurrentPage(number)} />
+            <Pagination currentPage={currentPage} onChangePage={onChangePage} />
         </div>
     );
 };
