@@ -47,12 +47,12 @@ const Home = () => {
 
     return (
         <div className='container'>
-            <div class="content__top">
+            <div className="content__top">
                 <Categories value={categoryId} onClickCategory={onClickCategory} />
                 <Sort value={sortType} onChangeSort={(index) => setSortType(index)} />
             </div>
-            <h2 class="content__title">Все пиццы</h2>
-            <div class="content__items">
+            <h2 className="content__title">Все пиццы</h2>
+            <div className="content__items">
                 {isLoading
                     ? skeletons
                     : items

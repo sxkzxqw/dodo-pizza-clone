@@ -16,8 +16,8 @@ const Sort = ({ value, onChangeSort }) => {
   }
 
   return (
-    <div class="sort">
-      <div class="sort__label">
+    <div className="sort">
+      <div className="sort__label">
         <svg
           width="10"
           height="6"
@@ -34,7 +34,7 @@ const Sort = ({ value, onChangeSort }) => {
         <span onClick={() => setIsPopupVisible(!isPopupVisisble)}>{value.name}</span>
       </div>
       {isPopupVisisble && (
-        <div class="sort__popup">
+        <div className="sort__popup">
           <ul>
             {
               list.map((item, index) => {

@@ -13,7 +13,7 @@ const Categories = ({ value, onClickCategory }) => {
   ]
 
   return (
-    <div class="categories">
+    <div className="categories">
       <ul>
         {
           categories.map((category, index) => {

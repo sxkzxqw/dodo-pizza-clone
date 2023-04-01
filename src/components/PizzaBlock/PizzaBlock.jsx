@@ -8,14 +8,14 @@ const PizzaBlock = ({ pizza }) => {
 
   return (
     <div className='pizza-block-wrapper'>
-      <div class="pizza-block">
+      <div className="pizza-block">
         <img
-          class="pizza-block__image"
+          className="pizza-block__image"
           src={pizza.imageUrl}
           alt={pizza.title}
         />
-        <h4 class="pizza-block__title">{pizza.title}</h4>
-        <div class="pizza-block__selector">
+        <h4 className="pizza-block__title">{pizza.title}</h4>
+        <div className="pizza-block__selector">
           <ul>
             {
               pizza.types.map((type, index) => {
@@ -31,9 +31,9 @@ const PizzaBlock = ({ pizza }) => {
             }
           </ul>
         </div>
-        <div class="pizza-block__bottom">
-          <div class="pizza-block__price">от {pizza.price} ₽</div>
-          <div class="button button--outline button--add">
+        <div className="pizza-block__bottom">
+          <div className="pizza-block__price">от {pizza.price} ₽</div>
+          <div className="button button--outline button--add">
             <svg
               width="12"
               height="12"
