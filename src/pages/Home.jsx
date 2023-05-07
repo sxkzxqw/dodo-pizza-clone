@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setPageCount } from '../redux/slices/filterSlice';
 import axios from 'axios';
 import { fetchPizzas, setItems } from '../redux/slices/pizzasSlice';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const { searchValue } = React.useContext(appContext)
@@ -22,7 +23,9 @@ const Home = () => {
     const pizzas = useSelector((state) => state.pizza.items)
 
     const items = pizzas.map((pizza) => {
-        return <PizzaBlock pizza={pizza} key={pizza.id} />
+        return (
+            <PizzaBlock pizza={pizza} key={pizza.id} />
+        )
     })
 
     const skeletons = [...new Array(12)].map((_, index) => { return <Skeleton key={index} /> })
