@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { addItem } from '../../redux/slices/cartSlice';
 import { Link, useLocation } from 'react-router-dom';
 import { TPizzaType } from '../../utils/types/types';
+import { useAppDispatch, useAppSelector } from '../../utils/redux-utils/redux-utils';
 
 type TPizzaBlock = {
   pizza: TPizzaType
@@ -11,10 +11,10 @@ type TPizzaBlock = {
 const typeNames = ['тонкое', 'традиционное']
 
 const PizzaBlock: FC<TPizzaBlock> = ({ pizza }) => {
-  const cartItem = useSelector((state: any) => state.cart.items.find((item: any) => item.id === pizza.id))
+  const cartItem = useAppSelector((state) => state.cart.items.find((item) => item.id === pizza.id))
   const [activeType, setActiveType] = useState(0)
   const [activeSize, setActiveSize] = useState(0)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const location = useLocation()
 
   const addedCount = cartItem ? cartItem.count : 0

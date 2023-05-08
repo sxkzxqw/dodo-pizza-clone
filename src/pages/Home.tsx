@@ -4,21 +4,21 @@ import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort/Sort';
 import Pagination from '../components/Pagination/Pagination';
-import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setPageCount } from '../redux/slices/filterSlice';
 import { fetchPizzas } from '../redux/slices/pizzasSlice';
 import { TPizzaType } from '../utils/types/types';
+import { useAppDispatch, useAppSelector } from '../utils/redux-utils/redux-utils';
 
 const Home: FC = () => {
-    const searchValue = useSelector((state: any) => state.searchValue.value)
-    const sortType = useSelector((state: any) => state.filters.sort.sortProperty)
-    const isLoading = useSelector((state: any) => state.pizza.isLoading)
+    const searchValue = useAppSelector((state) => state.searchValue.value)
+    const sortType = useAppSelector((state) => state.filters.sort.sortProperty)
+    const isLoading = useAppSelector((state) => state.pizza.isLoading)
 
-    const dispatch = useDispatch()
-    const categoryId = useSelector((state: any) => state.filters.categoryId)
-    const currentPage = useSelector((state: any) => state.filters.pageCount)
+    const dispatch = useAppDispatch()
+    const categoryId = useAppSelector((state) => state.filters.categoryId)
+    const currentPage = useAppSelector((state) => state.filters.pageCount)
 
-    const pizzas = useSelector((state: any) => state.pizza.items)
+    const pizzas = useAppSelector((state) => state.pizza.items)
 
     const items = pizzas.map((pizza: TPizzaType) => {
         return (
@@ -40,7 +40,6 @@ const Home: FC = () => {
         const order = sortType.includes('-') ? 'asc' : 'desc';
         const search = searchValue ? `search=${searchValue}` : '';
         dispatch(
-            //@ts-ignore
             fetchPizzas({
                 order,
                 search,

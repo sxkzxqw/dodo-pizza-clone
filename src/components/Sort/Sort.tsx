@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setSort } from '../../redux/slices/filterSlice';
+import { TSortProperty, setSort } from '../../redux/slices/filterSlice';
+import { useAppDispatch, useAppSelector } from '../../utils/redux-utils/redux-utils';
 
 export const list: SortItem[] = [
   { name: 'популярности(убыв)', sortProperty: 'rating' },
@@ -13,12 +13,12 @@ export const list: SortItem[] = [
 
 type SortItem = {
   name: string;
-  sortProperty: string;
+  sortProperty: TSortProperty;
 }
 
 const Sort = () => {
-  const dispatch = useDispatch()
-  const value: any = useSelector((state: any) => state.filters.sort)
+  const dispatch = useAppDispatch()
+  const value = useAppSelector((state) => state.filters.sort)
   const sortRef = useRef<HTMLDivElement | null>(null);
 
   const [isPopupVisisble, setIsPopupVisible] = useState(false);

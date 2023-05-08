@@ -1,6 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { TPizzaRedux, TPizzaType } from "../../utils/types/types";
 
-const initialState = {
+interface state {
+    totalPrice: number;
+    items: TPizzaRedux[];
+}
+
+const initialState: state = {
     totalPrice: 0,
     items: [],
 }
@@ -22,7 +28,7 @@ export const cartSlice = createSlice({
 
             state.totalPrice = state.items.reduce((sum, item) => { return sum + item.price * item.count }, 0)
         },
-        removeItem(state, action) {
+        removeItem(state, action: PayloadAction<string>) {
             state.items = state.items.filter((obj) => obj.id !== action.payload);
             state.totalPrice = state.items.reduce((sum, item) => { return sum + item.price * item.count }, 0)
         },
@@ -30,7 +36,7 @@ export const cartSlice = createSlice({
             state.items = [];
             state.totalPrice = 0;
         },
-        minusItem(state, action) {
+        minusItem(state, action: PayloadAction<string>) {
             const findItem = state.items.find(item => item.id === action.payload);
 
             if (findItem) {
