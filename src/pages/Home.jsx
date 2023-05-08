@@ -9,10 +9,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setPageCount } from '../redux/slices/filterSlice';
 import axios from 'axios';
 import { fetchPizzas, setItems } from '../redux/slices/pizzasSlice';
-import { Link } from 'react-router-dom';
 
 const Home = () => {
-    const { searchValue } = React.useContext(appContext)
+    const searchValue = useSelector((state) => state.searchValue.value)
     const sortType = useSelector((state) => state.filters.sort.sortProperty)
     const isLoading = useSelector((state) => state.pizza.isLoading)
 
