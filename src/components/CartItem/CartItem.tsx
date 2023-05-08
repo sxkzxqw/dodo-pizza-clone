@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { addItem, minusItem, removeItem } from '../../redux/slices/cartSlice';
+import { TPizzaType } from '../../utils/types/types';
 
-const CartItem = ({ item }) => {
+type CartItemProps = {
+    item: TPizzaType
+}
+
+const CartItem: FC<CartItemProps> = ({ item }) => {
     const dispatch = useDispatch()
-    const id = item.id
+    const id: string = item.id
 
     const onClickIncr = () => {
         dispatch(addItem({ id }))
@@ -49,7 +54,8 @@ const CartItem = ({ item }) => {
                 </button>
             </div>
             <div className="cart__item-price">
-                <b>{item.price * item.count} ₽</b>
+                <b>{item.count &&
+                    item.price * item.count} ₽</b>
             </div>
             <div className="cart__item-remove">
                 <button className="button button--outline button--circle" onClick={onClickRemove}>

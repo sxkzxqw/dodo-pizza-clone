@@ -1,7 +1,7 @@
 import ContentLoader from "react-content-loader";
-import React from 'react';
+import React, { FC } from 'react';
 
-const Skeleton = (props) => {
+const Skeleton: FC = (props) => {
     return (
         <ContentLoader
             className="pizza-block"

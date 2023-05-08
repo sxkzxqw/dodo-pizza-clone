@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSort } from '../../redux/slices/filterSlice';
 
-export const list = [
+export const list: SortItem[] = [
   { name: 'популярности(убыв)', sortProperty: 'rating' },
   { name: 'популярности(возр)', sortProperty: '-rating' },
   { name: 'цене(убыв)', sortProperty: 'price' },
@@ -11,19 +11,24 @@ export const list = [
   { name: 'алфавиту(возр)', sortProperty: '-title' }
 ];
 
+type SortItem = {
+  name: string;
+  sortProperty: string;
+}
+
 const Sort = () => {
   const dispatch = useDispatch()
-  const value = useSelector((state) => state.filters.sort)
-  const sortRef = useRef();
+  const value: any = useSelector((state: any) => state.filters.sort)
+  const sortRef = useRef<HTMLDivElement | null>(null);
 
   const [isPopupVisisble, setIsPopupVisible] = useState(false);
-  const onClickSetItem = (item) => {
+  const onClickSetItem = (item: SortItem) => {
     dispatch(setSort(item))
     setIsPopupVisible(!isPopupVisisble)
   }
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: any) => {
       if (!event.composedPath().includes(sortRef.current)) {
         setIsPopupVisible(false)
       }
@@ -57,7 +62,7 @@ const Sort = () => {
         <div className="sort__popup">
           <ul>
             {
-              list.map((item, index) => {
+              list.map((item: SortItem, index: number) => {
                 return <li key={index} className={value.sortProperty === item.sortProperty ? 'active' : ''} onClick={() => { onClickSetItem(item) }}>{item.name}</li>
               })
             }

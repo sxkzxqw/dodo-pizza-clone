@@ -1,27 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import Categories from '../components/Categories/Categories';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort/Sort';
 import Pagination from '../components/Pagination/Pagination';
-import { appContext } from '../App';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setPageCount } from '../redux/slices/filterSlice';
-import axios from 'axios';
-import { fetchPizzas, setItems } from '../redux/slices/pizzasSlice';
+import { fetchPizzas } from '../redux/slices/pizzasSlice';
+import { TPizzaType } from '../utils/types/types';
 
-const Home = () => {
-    const searchValue = useSelector((state) => state.searchValue.value)
-    const sortType = useSelector((state) => state.filters.sort.sortProperty)
-    const isLoading = useSelector((state) => state.pizza.isLoading)
+const Home: FC = () => {
+    const searchValue = useSelector((state: any) => state.searchValue.value)
+    const sortType = useSelector((state: any) => state.filters.sort.sortProperty)
+    const isLoading = useSelector((state: any) => state.pizza.isLoading)
 
     const dispatch = useDispatch()
-    const categoryId = useSelector((state) => state.filters.categoryId)
-    const currentPage = useSelector((state) => state.filters.pageCount)
+    const categoryId = useSelector((state: any) => state.filters.categoryId)
+    const currentPage = useSelector((state: any) => state.filters.pageCount)
 
-    const pizzas = useSelector((state) => state.pizza.items)
+    const pizzas = useSelector((state: any) => state.pizza.items)
 
-    const items = pizzas.map((pizza) => {
+    const items = pizzas.map((pizza: TPizzaType) => {
         return (
             <PizzaBlock pizza={pizza} key={pizza.id} />
         )
@@ -29,7 +28,7 @@ const Home = () => {
 
     const skeletons = [...new Array(12)].map((_, index) => { return <Skeleton key={index} /> })
 
-    const onChangePage = (number) => {
+    const onChangePage = (number: number) => {
         dispatch(setPageCount(number))
     }
 
@@ -40,17 +39,19 @@ const Home = () => {
     const getPizzas = async () => {
         const order = sortType.includes('-') ? 'asc' : 'desc';
         const search = searchValue ? `search=${searchValue}` : '';
-        dispatch(fetchPizzas({
-            order,
-            search,
-            currentPage,
-            categoryId,
-            sortType
-        }))
+        dispatch(
+            //@ts-ignore
+            fetchPizzas({
+                order,
+                search,
+                currentPage,
+                categoryId,
+                sortType
+            }))
         window.scrollTo(0, 0)
     }
 
-    const onClickCategory = (index) => {
+    const onClickCategory = (index: number) => {
         dispatch(setCategoryId(index))
     };
 

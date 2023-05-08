@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CartItem from '../components/CartItem/CartItem';
 import { clearItems } from '../redux/slices/cartSlice';
 import CartEmpty from '../components/CartEmpty/CartEmpty';
+import { TPizzaType } from '../utils/types/types';
 
-const Cart = () => {
+const Cart: FC = () => {
     const dispatch = useDispatch()
-    const { totalPrice, items } = useSelector((state) => state.cart)
+    const { totalPrice, items } = useSelector((state: any) => state.cart)
 
     const onClickClear = () => {
         if (window.confirm('Вы точно хотите убрать все товары из корзины?')) {
@@ -15,7 +16,7 @@ const Cart = () => {
         }
     }
 
-    const totalCount = items.reduce((sum, item) => sum + item.count, 0)
+    const totalCount: number = items.reduce((sum: number, item: any) => sum + item.count, 0)
 
     if (!totalPrice) {
         return <CartEmpty />
@@ -44,7 +45,7 @@ const Cart = () => {
                 </div>
                 <div className="content__items">
                     {
-                        items.map((item) => {
+                        items.map((item: TPizzaType) => {
                             return <CartItem item={item} key={item.id} />
                         })
                     }

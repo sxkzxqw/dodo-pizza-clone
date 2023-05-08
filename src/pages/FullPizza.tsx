@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Loader from '../components/Loader/Loader';
+import { TPizzaType } from '../utils/types/types';
 
-const FullPizza = () => {
+const FullPizza: FC = () => {
     const { id } = useParams()
-    const [pizza, setPizza] = useState(null);
+    const [pizza, setPizza] = useState<TPizzaType | null>(null);
     const navigate = useNavigate()
     useEffect(() => {
         async function fetchPizza() {
@@ -20,13 +21,15 @@ const FullPizza = () => {
         }
         fetchPizza()
     }, [])
+
     return (
-        <div className='container'>
+        <div className='container' style={{ flexDirection: 'column', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
             <h2 style={{ textAlign: 'center', marginBottom: '4rem' }}>{pizza?.title}</h2>
             {pizza
                 ? <PizzaBlock pizza={pizza} />
                 : <Loader />
             }
+            <button className='button' type='button' onClick={() => { navigate(-1) }}>Вернуться назад &larr;</button>
         </div>
     );
 };
