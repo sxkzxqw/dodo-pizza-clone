@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import React, { FC, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import { TSortProperty, setSort } from '../../redux/slices/filterSlice';
 import { useAppDispatch, useAppSelector } from '../../utils/redux-utils/redux-utils';
 
@@ -16,7 +16,7 @@ type SortItem = {
   sortProperty: TSortProperty;
 }
 
-const Sort = () => {
+const Sort: FC = () => {
   const dispatch = useAppDispatch()
   const value = useAppSelector((state) => state.filters.sort)
   const sortRef = useRef<HTMLDivElement | null>(null);

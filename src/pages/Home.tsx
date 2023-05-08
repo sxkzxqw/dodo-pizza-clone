@@ -1,9 +1,8 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import Categories from '../components/Categories/Categories';
 import PizzaBlock from '../components/PizzaBlock/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort/Sort';
-import Pagination from '../components/Pagination/Pagination';
 import { setCategoryId, setPageCount } from '../redux/slices/filterSlice';
 import { fetchPizzas } from '../redux/slices/pizzasSlice';
 import { TPizzaType } from '../utils/types/types';
@@ -50,9 +49,9 @@ const Home: FC = () => {
         window.scrollTo(0, 0)
     }
 
-    const onClickCategory = (index: number) => {
+    const onClickCategory = useCallback((index: number) => {
         dispatch(setCategoryId(index))
-    };
+    }, []);
 
     return (
         <div className='container'>
@@ -67,7 +66,7 @@ const Home: FC = () => {
                     : items
                 }
             </div>
-            <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+            {/* -pagination caused because server cant give all items <Pagination currentPage={currentPage} onChangePage={onChangePage} />  */}
         </div>
     );
 };

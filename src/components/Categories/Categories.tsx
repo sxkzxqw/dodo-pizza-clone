@@ -5,7 +5,7 @@ type TCategoriesProps = {
   onClickCategory: (index: number) => void;
 }
 
-const Categories: FC<TCategoriesProps> = ({ value, onClickCategory }) => {
+const Categories: FC<TCategoriesProps> = React.memo(({ value, onClickCategory }) => {
   const categories = [
     'Все',
     'Мясные',
@@ -28,6 +28,6 @@ const Categories: FC<TCategoriesProps> = ({ value, onClickCategory }) => {
       </ul>
     </div>
   );
-};
+})
 
 export default Categories;
