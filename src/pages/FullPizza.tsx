@@ -24,12 +24,12 @@ const FullPizza: FC = () => {
 
     return (
         <div className='container' style={{ flexDirection: 'column', alignItems: 'center', display: 'flex', justifyContent: 'center' }}>
-            <h2 style={{ textAlign: 'center', marginBottom: '4rem' }}>{pizza?.title}</h2>
             {pizza
-                ? <PizzaBlock pizza={pizza} />
+                ? <><h2 style={{ textAlign: 'center', marginBottom: '4rem' }}>{pizza?.title}</h2>
+                    <PizzaBlock pizza={pizza} />
+                    <button className='button' type='button' onClick={() => { navigate(-1) }}>Вернуться назад &larr;</button></>
                 : <Loader />
             }
-            <button className='button' type='button' onClick={() => { navigate(-1) }}>Вернуться назад &larr;</button>
         </div>
     );
 };

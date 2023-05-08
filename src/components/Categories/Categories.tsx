@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 
 type TCategoriesProps = {
   value: number;
-  onClickCategory: any;
+  onClickCategory: (index: number) => void;
 }
 
 const Categories: FC<TCategoriesProps> = ({ value, onClickCategory }) => {
